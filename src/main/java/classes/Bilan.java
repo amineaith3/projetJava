@@ -4,12 +4,15 @@ import java.util.Date;
 
 public class Bilan
 {
-    public int getIdBilan() {
-        return idBilan;
-    }
 
-    public void setIdBilan(int idBilan) {
-        this.idBilan = idBilan;
+    private String fichierPath;
+    private String notes;
+
+
+
+    public Bilan( String fichierPath, String notes) {
+        this.fichierPath = fichierPath;
+        this.notes = notes;
     }
 
     public String getFichierPath() {
@@ -28,13 +31,5 @@ public class Bilan
         this.notes = notes;
     }
 
-    public Bilan(int idBilan, String fichierPath, String notes) {
-        this.idBilan = idBilan;
-        this.fichierPath = fichierPath;
-        this.notes = notes;
-    }
 
-    private int idBilan;
-    private String fichierPath;
-    private String notes;
 }
