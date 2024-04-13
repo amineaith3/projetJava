@@ -4,19 +4,29 @@ import java.util.Date;
 
 public class Session {
     private Date dateDepart;
-    private String prescription;
+    private StringBuffer prescription;
     private String typeSession;
+    private int nombreSeance;
     private boolean etat;
-    private String dossierMedical;
-    private String notes;
+    private StringBuffer dossierMedical;
+    private StringBuffer notes;
 
-    public Session(Date dateDepart, String prescription, String typeSession, boolean etat, String dossierMedical, String notes) {
+    public Session(Date dateDepart, StringBuffer prescription, int nombreSeance, String typeSession, boolean etat, StringBuffer dossierMedical, StringBuffer notes) {
         this.dateDepart = dateDepart;
         this.prescription = prescription;
         this.typeSession = typeSession;
+        this.nombreSeance = nombreSeance;
         this.etat = etat;
         this.dossierMedical = dossierMedical;
         this.notes = notes;
+    }
+
+    public int getNombreSeance() {
+        return nombreSeance;
+    }
+
+    public void setNombreSeance(int nombreSeance) {
+        this.nombreSeance = nombreSeance;
     }
 
     public Date getDateDepart() {
@@ -27,11 +37,11 @@ public class Session {
         this.dateDepart = dateDepart;
     }
 
-    public String getPrescription() {
+    public StringBuffer getPrescription() {
         return prescription;
     }
 
-    public void setPrescription(String prescription) {
+    public void setPrescription(StringBuffer prescription) {
         this.prescription = prescription;
     }
 
@@ -51,19 +61,19 @@ public class Session {
         this.etat = etat;
     }
 
-    public String getDossierMedical() {
+    public StringBuffer getDossierMedical() {
         return dossierMedical;
     }
 
-    public void setDossierMedical(String dossierMedical) {
+    public void setDossierMedical(StringBuffer dossierMedical) {
         this.dossierMedical = dossierMedical;
     }
 
-    public String getNotes() {
+    public StringBuffer getNotes() {
         return notes;
     }
 
-    public void setNotes(String notes) {
+    public void setNotes(StringBuffer notes) {
         this.notes = notes;
     }
 }
