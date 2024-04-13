@@ -1,4 +1,4 @@
-module sakuun.kinejava {
+module sakuun {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
@@ -12,6 +12,6 @@ module sakuun.kinejava {
     requires com.almasb.fxgl.all;
     requires java.sql;
 
-    opens sakuun.kinejava to javafx.fxml;
-    exports sakuun.kinejava;
+    opens controllers to javafx.fxml;
+    exports sakuun.main;
 }

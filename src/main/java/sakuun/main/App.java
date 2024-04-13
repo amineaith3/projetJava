@@ -1,4 +1,4 @@
-package sakuun.kinejava;
+package sakuun.main;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
