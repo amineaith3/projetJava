@@ -7,11 +7,11 @@ public class Prescripteur
     private String codeDoc;
     private String nom;
     private String prenom;
-    private String adress;
-    private String email;
-    private String notes;
+    private StringBuffer adress;
+    private StringBuffer email;
+    private StringBuffer notes;
 
-    public String getAdress() {
+    public StringBuffer getAdress() {
         return adress;
     }
 
@@ -19,7 +19,7 @@ public class Prescripteur
         return codeDoc;
     }
 
-    public String getEmail() {
+    public StringBuffer getEmail() {
         return email;
     }
 
@@ -27,7 +27,7 @@ public class Prescripteur
         return nom;
     }
 
-    public String getNotes() {
+    public StringBuffer getNotes() {
         return notes;
     }
 
@@ -35,7 +35,7 @@ public class Prescripteur
         return prenom;
     }
 
-    public void setAdress(String adress) {
+    public void setAdress(StringBuffer adress) {
         this.adress = adress;
     }
 
@@ -43,7 +43,7 @@ public class Prescripteur
         this.codeDoc = codeDoc;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(StringBuffer email) {
         this.email = email;
     }
 
@@ -51,7 +51,7 @@ public class Prescripteur
         this.nom = nom;
     }
 
-    public void setNotes(String notes) {
+    public void setNotes(StringBuffer notes) {
         this.notes = notes;
     }
 
@@ -59,8 +59,14 @@ public class Prescripteur
         this.prenom = prenom;
     }
 
-    public Prescripteur(String codeDoc,String nom,String prenom,String adress,String email,String notes)
+    public Prescripteur(String codeDoc,String nom,String prenom,StringBuffer adress,StringBuffer email,StringBuffer notes)
     {
-        this.adress
+        this.codeDoc = codeDoc;
+        this.prenom = prenom;
+        this.nom = nom;
+        this.email =email;
+        this.notes = notes;
+        this.adress=adress;
+
     }
 }
