@@ -2,14 +2,14 @@ package classes;
 
 import java.util.Date;
 
-public class Bilan
+public class Protocole
 {
 
     private String notes;
 
 
 
-    public Bilan(String notes) {
+    public Protocole(String notes) {
         this.notes = notes;
     }
 
