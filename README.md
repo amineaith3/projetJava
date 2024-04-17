@@ -2,20 +2,9 @@
 
 **Description:** Briefly describe your project here.
 
+
+
 ## Project Structure
-
-[src](src)
-        └── [main](src/main)
-                ├── [database](src/main/database)
-                ├── [java](src/main/java)
-                │   ├── [classes](src/main/java/classes)
-                │   ├── [controllers](src/main/java/controllers)
-                │   └── [DBModels](src/main/java/DBModels)
-                └── [resources](src/main/resources)
-
-
-
-## Components
 
 ### Classes
 - [Bilan](src/main/java/classes/Bilan.java)
