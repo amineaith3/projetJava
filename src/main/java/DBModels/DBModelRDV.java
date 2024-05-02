@@ -67,6 +67,37 @@ public class DBModelRDV {
         }
     }
 
+    public static ObservableList<RDV> searchPatientsByRDVDate(Date rdvDate) throws SQLException {
+        ObservableList<RDV> RDV = FXCollections.observableArrayList();
+        Connection connection = DBConnector.connectDB();
+        try {
+            String query = "SELECT * " +
+                    "FROM RDV "+
+                    "WHERE DATE(DATE_RENDEZ_VOUS) = ?";
+
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setDate(1, rdvDate);
+
+            ResultSet resultSet = ps.executeQuery();
+
+            while (resultSet.next()) {
+                RDV rdv = new RDV(
+                        resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getString(4),
+                        resultSet.getTimestamp(5));
+                RDV.add(rdv);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            connection.close();
+        }
+        return RDV;
+    }
+
+
     public static boolean isRDVExist(Timestamp date) throws SQLException {
         Connection connection = DBConnector.connectDB();
         String query = "SELECT * FROM RDV WHERE DATE_RENDEZ_VOUS = ?";

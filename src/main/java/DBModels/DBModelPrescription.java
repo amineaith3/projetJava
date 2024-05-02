@@ -37,4 +37,8 @@ public class DBModelPrescription {
         }
         connection.close();
     }
+
+    @Override
+    public static void add
+    }
 }

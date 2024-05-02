@@ -47,7 +47,7 @@ public class DBModelPrescripteur {
         try {
             if(!isPrescripteurExist(nom,prenom,address)){
 
-                String query = "INSERT INTO prescripteur(NOM, PRENOM , ADDRESS , EMAIL , `NOTE ) VALUES (?, ?, ?, ?, ?)";
+                String query = "INSERT INTO prescripteur(NOM, PRENOM , ADDRESS , EMAIL , NOTES ) VALUES (?, ?, ?, ?, ?)";
                 PreparedStatement ps = connection.prepareStatement(query);
                 ps.setString(1,nom);
                 ps.setString(2, prenom);
