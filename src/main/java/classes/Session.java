@@ -1,32 +1,41 @@
 package classes;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Session {
+
+    private int idPrescription;
+    private int idPatient;
+    private int idPrescripteur;
     private Date dateDepart;
-    private StringBuffer prescription;
     private String typeSession;
-    private int nombreSeance;
-    private boolean etat;
+    private int nbrSeance;
+    private String stat;
     private StringBuffer dossierMedical;
-    private StringBuffer notes;
+    private StringBuffer Notes;
 
-    public Session(Date dateDepart, StringBuffer prescription, int nombreSeance, String typeSession, boolean etat, StringBuffer dossierMedical, StringBuffer notes) {
-        this.dateDepart = dateDepart;
-        this.prescription = prescription;
-        this.typeSession = typeSession;
-        this.nombreSeance = nombreSeance;
-        this.etat = etat;
-        this.dossierMedical = dossierMedical;
-        this.notes = notes;
+    public int getIdPrescription() {
+        return idPrescription;
     }
 
-    public int getNombreSeance() {
-        return nombreSeance;
+    public void setIdPrescription(int idPrescription) {
+        this.idPrescription = idPrescription;
     }
 
-    public void setNombreSeance(int nombreSeance) {
-        this.nombreSeance = nombreSeance;
+    public int getIdPatient() {
+        return idPatient;
+    }
+
+    public void setIdPatient(int idPatient) {
+        this.idPatient = idPatient;
+    }
+
+    public int getIdPrescripteur() {
+        return idPrescripteur;
+    }
+
+    public void setIdPrescripteur(int idPrescripteur) {
+        this.idPrescripteur = idPrescripteur;
     }
 
     public Date getDateDepart() {
@@ -37,14 +46,6 @@ public class Session {
         this.dateDepart = dateDepart;
     }
 
-    public StringBuffer getPrescription() {
-        return prescription;
-    }
-
-    public void setPrescription(StringBuffer prescription) {
-        this.prescription = prescription;
-    }
-
     public String getTypeSession() {
         return typeSession;
     }
@@ -53,12 +54,20 @@ public class Session {
         this.typeSession = typeSession;
     }
 
-    public boolean isEtat() {
-        return etat;
+    public int getNbrSeance() {
+        return nbrSeance;
     }
 
-    public void setEtat(boolean etat) {
-        this.etat = etat;
+    public void setNbrSeance(int nbrSeance) {
+        this.nbrSeance = nbrSeance;
+    }
+
+    public String getStat() {
+        return stat;
+    }
+
+    public void setStat(String stat) {
+        this.stat = stat;
     }
 
     public StringBuffer getDossierMedical() {
@@ -70,10 +79,22 @@ public class Session {
     }
 
     public StringBuffer getNotes() {
-        return notes;
+        return Notes;
     }
 
     public void setNotes(StringBuffer notes) {
-        this.notes = notes;
+        Notes = notes;
+    }
+
+    public Session(int idPrescription, int idPatient, int idPrescripteur, Date dateDepart, String typeSession, int nbrSeance, String stat, StringBuffer dossierMedical, StringBuffer notes) {
+        this.idPrescription = idPrescription;
+        this.idPatient = idPatient;
+        this.idPrescripteur = idPrescripteur;
+        this.dateDepart = dateDepart;
+        this.typeSession = typeSession;
+        this.nbrSeance = nbrSeance;
+        this.stat = stat;
+        this.dossierMedical = dossierMedical;
+        Notes = notes;
     }
 }

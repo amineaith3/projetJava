@@ -4,7 +4,6 @@ import java.util.Date;
 
 public class Prescripteur
 {
-    private String codeDoc;
     private String nom;
     private String prenom;
     private StringBuffer adress;
@@ -15,9 +14,6 @@ public class Prescripteur
         return adress;
     }
 
-    public String getCodeDoc() {
-        return codeDoc;
-    }
 
     public StringBuffer getEmail() {
         return email;
@@ -39,9 +35,7 @@ public class Prescripteur
         this.adress = adress;
     }
 
-    public void setCodeDoc(String codeDoc) {
-        this.codeDoc = codeDoc;
-    }
+
 
     public void setEmail(StringBuffer email) {
         this.email = email;
@@ -59,9 +53,8 @@ public class Prescripteur
         this.prenom = prenom;
     }
 
-    public Prescripteur(String codeDoc,String nom,String prenom,StringBuffer adress,StringBuffer email,StringBuffer notes)
+    public Prescripteur(String nom,String prenom,StringBuffer adress,StringBuffer email,StringBuffer notes)
     {
-        this.codeDoc = codeDoc;
         this.prenom = prenom;
         this.nom = nom;
         this.email =email;

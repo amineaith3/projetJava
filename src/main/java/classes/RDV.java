@@ -60,7 +60,7 @@ public class RDV {
 
     private Timestamp dureeRdv;
 
-    public RDV( int session, String etat, String note,String motif,Timestamp dateRdv) {
+    public RDV(int session, String etat, String note,String motif,Timestamp dateRdv) {
         this.etat = etat;
         this.note = note;
         this.dateRdv = dateRdv;
