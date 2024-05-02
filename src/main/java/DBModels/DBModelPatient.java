@@ -3,6 +3,7 @@ package DBModels;
 import DBConnector.*;
 
 import classes.Patient;
+import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -108,25 +109,37 @@ public class DBModelPatient {
         }
         return patients;
     }
-
+    public static boolean isPatientExist(String cin) throws SQLException {
+        Connection connection = DBConnector.connectDB();
+        String query = "SELECT * FROM patient WHERE CIN = ?";
+        PreparedStatement ps = connection.prepareStatement(query);
+        ps.setString(1, cin);
+        return (ps.executeQuery()).next();
+    }
     public static void addPatient(String cin, String prenom, String nom, StringBuffer tel, boolean sexe, Date dateNaissance, StringBuffer address, StringBuffer note, StringBuffer mutuelle) throws SQLException {
         Connection connection = DBConnector.connectDB();
         try {
+            if(!isPatientExist((cin)))
+            {
+                String query = "INSERT INTO patient(CIN, PRENOM, NOM, TEL, SEXE, DATENAISSANCE, ADDRESS, NOTE, MUTUELLE) values (?,?,?,?,?,?,?,?,?)";
+                PreparedStatement ps = connection.prepareStatement(query);
+                ps.setString(1, cin);
+                ps.setString(2, prenom);
+                ps.setString(3, nom);
+                ps.setString(4, tel.toString()); // Changed to use toString() method
+                ps.setBoolean(5, sexe);
+                ps.setDate(6, dateNaissance);
+                ps.setString(7, address.toString()); // Changed to use toString() method
+                ps.setString(8, note.toString()); // Changed to use toString() method
+                ps.setString(9, mutuelle.toString()); // Changed to use toString() method
 
-            String query = "INSERT INTO patient(CIN, PRENOM, NOM, TEL, SEXE, DATENAISSANCE, ADDRESS, NOTE, MUTUELLE) values (?,?,?,?,?,?,?,?,?)";
-            PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, cin);
-            ps.setString(2, prenom);
-            ps.setString(3, nom);
-            ps.setString(4, tel.toString()); // Changed to use toString() method
-            ps.setBoolean(5, sexe);
-            ps.setDate(6, dateNaissance);
-            ps.setString(7, address.toString()); // Changed to use toString() method
-            ps.setString(8, note.toString()); // Changed to use toString() method
-            ps.setString(9, mutuelle.toString()); // Changed to use toString() method
-
-            ps.executeUpdate(); // Added to execute the query
-            System.out.println("Patient Added Successfully");
+                ps.executeUpdate(); // Added to execute the query
+                System.out.println("Patient Added Successfully");
+            }
+            else {
+                System.out.println("erreur patient exist deja");
+                //Application.launch(PatientExistsError.class);
+            }
         } catch (SQLException e) {
             System.out.println("Failed to add patient");
             e.printStackTrace();
@@ -139,6 +152,8 @@ public class DBModelPatient {
     public static void updatePatient(String oldCin, String newCin, String prenom, String nom, String tel, boolean sexe, Date dateNaissance, String address, String note, String mutuelle) throws SQLException {
         Connection connection = DBConnector.connectDB();
         try {
+            if(!isPatientExist((newCin)))
+            {
             String query = "UPDATE patient SET PRENOM=?, NOM=?, TEL=?, SEXE=?, DATENAISSANCE=?, ADDRESS=?, NOTE=?, MUTUELLE=?, CIN = ? WHERE CIN=?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, prenom);
@@ -158,6 +173,12 @@ public class DBModelPatient {
                 System.out.println("Patient updated successfully");
             } else {
                 System.out.println("No patient found with the given CIN");
+            }
+            }
+            else
+            {
+                System.out.println("erreur patient exist deja");
+                //Application.launch(PatientExistsError.class);
             }
         } catch (SQLException e) {
             System.out.println("Failed to update patient");

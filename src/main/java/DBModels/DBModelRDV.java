@@ -1,41 +1,37 @@
 package DBModels;
 
-import DBConnector.DBConnector;
+import DBConnector.*;
+
 import classes.Patient;
 import classes.RDV;
 import classes.Session;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Date;
+import java.sql.*;
+import java.time.LocalDateTime;
 
 public class DBModelRDV {
-    private static ObservableList<RDV> rdvs = null;
+    private static ObservableList<RDV> rendezVousList = null;
 
     public DBModelRDV() {
-        rdvs = FXCollections.observableArrayList();
+        rendezVousList = FXCollections.observableArrayList();
     }
 
-    public ObservableList<RDV> getRDVs() {
-        return rdvs;
+    public ObservableList<RDV> getRendezVousList() {
+        return rendezVousList;
     }
+
+
 
     public static void getExistingRDVs() throws SQLException {
         Connection connection = DBConnector.connectDB();
         try {
-            String query = "SELECT * FROM rdv";
+            String query = "SELECT * FROM RDV";
             PreparedStatement ps = connection.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                // Get Patient object for RDV
-                Patient patient = getPatientById(rs.getInt("patient_id"));
-                // Get Session object for RDV
-                Session session = getSessionById(rs.getInt("session_id"));
-                rdvs.add(new RDV(patient, rs.getString("etat"), rs.getString("note"), session, rs.getString("motif"), rs.getDate("date_rdv"), rs.getDate("duree_rdv")));
+                rendezVousList.add(new RDV(rs.getInt("ID_SESSION"), rs.getString("ETATS"), rs.getString("NOTE"), rs.getString("MOTIF"), rs.getTimestamp("DATE_RENDEZ_VOUS")));
             }
             System.out.println("RDVs Data Inserted");
         } catch (Exception e) {
@@ -45,37 +41,40 @@ public class DBModelRDV {
         connection.close();
     }
 
-    public static Patient getPatientById(int id) throws SQLException {
+    public static void addRDV(int idSession, String etats, String note, String motif, Timestamp dateRendezVous) throws SQLException {
         Connection connection = DBConnector.connectDB();
         try {
-            String query = "SELECT * FROM patient WHERE id = ?";
-            PreparedStatement ps = connection.prepareStatement(query);
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return new Patient(rs.getString("cin"), rs.getString("prenom"), rs.getString("nom"), new StringBuffer(rs.getString("tel")), true, rs.getDate("dateNaissance"), new StringBuffer(rs.getString("adresse")), new StringBuffer(rs.getString("note")), new StringBuffer(rs.getString("mutuelle")));
+            if(!isRDVExist(dateRendezVous)){
+
+                String query = "INSERT INTO RDV(ID_SESSION, ETATS, NOTE, MOTIF, DATE_RENDEZ_VOUS) VALUES (?, ?, ?, ?, ?)";
+                PreparedStatement ps = connection.prepareStatement(query);
+                ps.setInt(1, idSession);
+                ps.setString(2, etats);
+                ps.setString(3, note);
+                ps.setString(4, motif);
+                ps.setTimestamp(5, dateRendezVous);
+
+                ps.executeUpdate();
+                System.out.println("RDV Added Successfully");
+            } else{
+                System.out.println("RDV Exists already");
             }
-        } catch (Exception e) {
-            System.out.println(e);
+        } catch (SQLException e) {
+            System.out.println("Failed to add RDV");
+            e.printStackTrace();
+        } finally {
+            connection.close();
         }
-        connection.close();
-        return null;
     }
 
-    public static Session getSessionById(int id) throws SQLException {
+    public static boolean isRDVExist(Timestamp date) throws SQLException {
         Connection connection = DBConnector.connectDB();
-        try {
-            String query = "SELECT * FROM session WHERE id = ?";
-            PreparedStatement ps = connection.prepareStatement(query);
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return new Session(rs.getDate("dateDepart"), new StringBuffer(rs.getString("prescription")), rs.getInt("nombreSeance"), rs.getString("typeSession"), rs.getBoolean("etat"), new StringBuffer(rs.getString("dossierMedical")), new StringBuffer(rs.getString("notes")));
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+        String query = "SELECT * FROM RDV WHERE DATE_RENDEZ_VOUS = ?";
+        PreparedStatement ps = connection.prepareStatement(query);
+        ps.setTimestamp(1, date);
+        ResultSet rs = ps.executeQuery();
+        boolean exists = rs.next();
         connection.close();
-        return null;
+        return exists;
     }
 }

@@ -1,29 +1,21 @@
 package classes;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class RDV {
-    private Patient patient;
     private String etat;
-    private Session session;
+    private int idSession;
     private String note;
     private String motif;
-    private Date dateRdv;
+    private Timestamp dateRdv;
 
-    public Patient getPatient() {
-        return patient;
+
+    public int getIdSession() {
+        return idSession;
     }
 
-    public Session getSession() {
-        return session;
-    }
-
-    public void setSession(Session session) {
-        this.session = session;
-    }
-
-    public void setClient(Patient patient) {
-        this.patient = patient;
+    public void setIdSession(int session) {
+        this.idSession = session;
     }
 
     public String getEtat() {
@@ -50,32 +42,30 @@ public class RDV {
         this.motif = motif;
     }
 
-    public Date getDateRdv() {
+    public Timestamp getDateRdv() {
         return dateRdv;
     }
 
-    public void setDateRdv(Date dateRdv) {
+    public void setDateRdv(Timestamp dateRdv) {
         this.dateRdv = dateRdv;
     }
 
-    public Date getDureeRdv() {
+    public Timestamp getDureeRdv() {
         return dureeRdv;
     }
 
-    public void setDureeRdv(Date dureeRdv) {
+    public void setDureeRdv(Timestamp dureeRdv) {
         this.dureeRdv = dureeRdv;
     }
 
-    private Date dureeRdv;
+    private Timestamp dureeRdv;
 
-    public RDV(Patient patient, String etat, String note, Session session, String motif,Date dateRdv, Date dureeRdv) {
-        this.patient = patient;
+    public RDV( int session, String etat, String note,String motif,Timestamp dateRdv) {
         this.etat = etat;
         this.note = note;
         this.dateRdv = dateRdv;
-        this.dureeRdv = dureeRdv;
         this.motif = motif;
-        this.session = session;
+        this.idSession = session;
     }
 
 }
