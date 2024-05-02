@@ -45,9 +45,9 @@ public class DBModelPrescripteur {
     public static void addPrescripteur(String nom, String prenom, StringBuffer address, StringBuffer email ,StringBuffer Note) throws SQLException {
         Connection connection = DBConnector.connectDB();
         try {
-            if(!isPrescripteurExist(nom,)){
+            if(!isPrescripteurExist(nom,prenom,address)){
 
-                String query = "INSERT INTO prescripteur(NOM, PRENOM , ADDRESS , EMAIL , NOTE ) VALUES (?, ?, ?, ?, ?)";
+                String query = "INSERT INTO prescripteur(NOM, PRENOM , ADDRESS , EMAIL , `NOTE ) VALUES (?, ?, ?, ?, ?)";
                 PreparedStatement ps = connection.prepareStatement(query);
                 ps.setString(1,nom);
                 ps.setString(2, prenom);
