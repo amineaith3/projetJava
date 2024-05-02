@@ -66,25 +66,22 @@ public class DBModelPrescription {
     }
 
 
-    public static void updatePrescription(int idpatient, String notes, String dossierMedical, int nbrSeances, String stat) throws SQLException {
+    public static void updatePrescription(String oldData,String NewData) throws SQLException {
         Connection connection = DBConnector.connectDB();
         try {
-            String query = "UPDATE Session SET NOTES = ?, DOSSIER_MEDICAL = ?, NBR_SEANCE = ?, STAT = ? WHERE ID_PATIENT = ?";
+            String query = "UPDATE prescription SET DATA = ? WHERE DATA = ?";
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, notes);
-            ps.setString(2, dossierMedical);
-            ps.setInt(3, nbrSeances);
-            ps.setString(4, stat);
-            ps.setInt(5, idpatient);
+            ps.setString(1, NewData);
+            ps.setString(2, oldData);
 
             int updatedRows = ps.executeUpdate();
             if (updatedRows > 0) {
-                System.out.println("Session Updated Successfully");
+                System.out.println("Prescription Updated Successfully");
             } else {
-                System.out.println("No session found with patient id: " + idpatient);
+                System.out.println("Pres");
             }
         } catch (SQLException e) {
-            System.out.println("Failed to update session");
+            System.out.println("Failed to update prescription");
             e.printStackTrace();
         } finally {
             connection.close();
