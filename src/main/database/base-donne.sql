@@ -10,7 +10,6 @@ drop table if exists APPORTE;
 drop table if exists BILLAN;
 
 drop table if exists CONTIENT;
-
 drop table if exists FICH;
 
 drop table if exists INCLUS;
